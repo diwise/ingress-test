@@ -1,14 +1,13 @@
 package main
 
 import (
-	"github.com/iot-for-tillgenglighet/ingress-test/pkg/handler"
-	"github.com/iot-for-tillgenglighet/ingress-test/pkg/messaging"
+	"github.com/diwise/ingress-test/pkg/handler"
+	"github.com/diwise/ingress-test/pkg/messaging"
 
 	"os"
 	"time"
 
 	log "github.com/sirupsen/logrus"
-	
 )
 
 func main() {
@@ -44,8 +43,7 @@ func main() {
 	}
 
 	defer messenger.Close()
-	
-	
+
 	handler.InitializeRouter(messenger)
 
 }

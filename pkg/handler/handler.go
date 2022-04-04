@@ -1,16 +1,15 @@
 package handler
 
 import (
-	"github.com/iot-for-tillgenglighet/ingress-test/pkg/messaging"
-	"github.com/iot-for-tillgenglighet/ingress-test/pkg/messaging/telemetry"
+	"github.com/diwise/ingress-test/pkg/messaging"
+	"github.com/diwise/ingress-test/pkg/messaging/telemetry"
 
+	"bytes"
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
-	"bytes"
 	"strings"
-	"encoding/json"
-
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -22,7 +21,6 @@ func InitializeRouter(m *messaging.Context) {
 
 	messenger = m
 	router := mux.NewRouter()
-
 
 	router.HandleFunc("/", getMethod).Methods("GET")
 	router.HandleFunc("/put", putMethod).Methods("PUT")
@@ -39,7 +37,6 @@ func InitializeRouter(m *messaging.Context) {
 		log.Print(err)
 	}
 
-	
 }
 
 func getMethod(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +49,7 @@ func putMethod(w http.ResponseWriter, r *http.Request) {
 
 	requestBuffer := new(bytes.Buffer)
 	requestBuffer.ReadFrom(r.Body)
-	
+
 	requestBody := requestBuffer.String()
 	lines := strings.Split(requestBody, "\n")
 
@@ -67,7 +64,7 @@ func putMethod(w http.ResponseWriter, r *http.Request) {
 			_ = json.Unmarshal([]byte(messageData), message)
 			messenger.PublishOnTopic(message)
 		}
-	
+
 	}
-	
+
 }

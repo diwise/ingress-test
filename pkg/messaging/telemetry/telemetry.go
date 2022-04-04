@@ -1,6 +1,6 @@
 package telemetry
 
-import "github.com/iot-for-tillgenglighet/ingress-test/pkg/messaging"
+import "github.com/diwise/ingress-test/pkg/messaging"
 
 // Temperature is a telemetry type IoTHubMessage
 type Temperature struct {
